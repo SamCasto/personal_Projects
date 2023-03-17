@@ -3,6 +3,8 @@ The rest of this file will be directly from comments in the source code. For add
 be stored in, then right click the folder and click 'Copy as path' to get the folder's path, then paste what you copied into the strings.txt file. Then 
 remove the quotation marks from what you have pasted. 
 
+Current version: 1.1 uploaded 3.17
+
 /*
  * Author: Samuel Casto
  * Last update: 3/17 - Added comments to the file to improve readability. Have not used the script
