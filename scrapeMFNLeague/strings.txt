@@ -1,0 +1,3 @@
+C:\Users\samue\eclipse-workspace\gameLogParse\gameLogs
+https://xfl.myfootballnow.com/
+https://pfl.myfootballnow.com/
