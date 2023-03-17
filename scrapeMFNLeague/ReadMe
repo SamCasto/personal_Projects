@@ -1,4 +1,4 @@
-This script currently only has functionality with the website myfootballnow.com. I'm unsure if there will be more functionality or changes added to it. 
+This script currently only has functionality with the website myfootballnow.com and while having a Java 17 needs to be your Java version. I'm unsure if there will be more functionality or changes added to it. 
 The rest of this file will be directly from comments in the source code. For adding the correct file path: create the folder you want the game logs to 
 be stored in, then right click the folder and click 'Copy as path' to get the folder's path, then paste what you copied into the strings.txt file. Then 
 remove the quotation marks from what you have pasted. 
