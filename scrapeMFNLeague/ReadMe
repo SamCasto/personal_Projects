@@ -1,0 +1,48 @@
+This script currently only has functionality with the website myfootballnow.com. I'm unsure if there will be more functionality or changes added to it. 
+The rest of this file will be directly from comments in the source code.
+
+/*
+ * Author: Samuel Casto
+ * Last update: 3/17 - Added comments to the file to improve readability. Have not used the script
+ * 				in months. Judging by the folder, last time this program ran there were no issues.
+ * 
+ * 
+ * Description: This code will take input from a file named strings.txt and use the input to 
+ * go to myfootballnow league home page/landing page and download game logs and convert them 
+ * into uniquely named csv files. The input should be broken into separate lines. 
+ * The first line of the input should specify where to download/write the csv files to. The next
+ * line(s) will specify which leagues to download game logs from. The program's current 
+ * functionality is to only download the most recent games played which are accessed through 
+ * the league home page/landing page. It will not download any other previously simulated games.
+ * This makes it ideal if you want to consistently add new games as they are simulated. There
+ * are no issues downloading game logs depending on game type(preseason/regular/playoffs.)
+ * 
+ * Intended use: 
+ * 			1. Add the correct input to strings.txt where the first line is the intended 
+ * 				download destination and each line after it is a unique league home page/landing
+ * 				page from the website MyFootballNow.
+ * 			2. Run the code or .exe file while your device is connected to the internet and 
+ * 				wait until the confirmation message at the end is displayed showing that the 
+ * 				program ran with no issues or errors.
+ * 			3. Manually confirm that the files downloaded/written were done so successfully and 
+ * 				can be opened by your csv processing application.
+ * 			4. Do what you want with the downloaded csv files. 
+ * 
+ * Current ideas for improvement:
+ * 	1. Add a way to handle downloading duplicates. As of 3/17 I do not remember the interaction
+ * 			as I have not ran the program in some time so this might be a non-issue
+ *  2. Add functionality that allows users to enter a box score number to start with and continue
+ *  		X amount of times so that users can get previously simulated games/or a specific
+ *  		subset of games played
+ *  3. Look for runtime improvements particularly in the downloading method and the breakpoint
+ *  		method. 
+ *  4. Update the name to better reflect what it does.
+ *  5. Add error handling in the event strings.txt does not get valid information.
+ *  
+ *  Requirements: 
+ *  	JRE installed.(until exe is made)
+ *  	Local file strings.txt with valid, relevant information inside it.
+ *  	Leagues exist on MFN.
+ *  	
+ *  	
+ */
