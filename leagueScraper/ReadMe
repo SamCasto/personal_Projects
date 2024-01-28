@@ -1,1 +1,33 @@
+This script currently only has functionality with the website myfootballnow.com and Java 17 needs to be your Java version. I'm unsure if there will be more functionality or changes added to it. 
+The rest of this file will be directly from comments in the source code. For adding the correct file path: create the folder you want the game logs to 
+be stored in, then right click the folder and click 'Copy as path' to get the folder's path, then paste what you copied into the strings.txt file. 
+Then remove the quotation marks from what you have pasted, if they are there. 
 
+The rest of this ReadMe will be pulled directly from the comment in the main code. 
+
+/* Author: Samuel Casto
+ * This class is going to be a class with the sole purpose of downloading game logs
+ * from a particular MFN league based on the four digits ID in the box score/download
+ * URL. We will use this in conjuction with scraperRunner to download CSVs into our
+ * parser folder to parse/create an excel spreadsheet. 
+ * 
+ * 
+ * 1 This program will function by taking in a string input of the league homepage and
+ * a starting box score number
+ * 2 From the text file we will get another string input of how many box scores to get
+ * as in the number of times we will download a game log (loop variable)
+ * 3 We will go through the process of getting to the download files using the last four
+ * digits and then writing the corresponding CSV
+ * 4 We will increase our box score number by 1 and repeat 3 until we hit our number entered
+ * in 2
+ * 
+ * To Do:
+ * 		Add functionality to let users say how many seasons of data they want instead of loop amount
+ * 		Add functionality to have the script choose which loop method to use based on number of 
+ * 			preseason games indicated
+ * 		Verify script runs as intended using JUnit tests
+ * 		Verify script outputs files correctly by running it to collect most recent USFL season
+ * 		
+ */
+
+scraperRunner will likely never be uploaded as it provides me a competitive advantage in MFN. I am more than happy to go over the code if needed during an interview.
