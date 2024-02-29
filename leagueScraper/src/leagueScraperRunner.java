@@ -5,21 +5,23 @@
  * parser folder to parse/create an excel spreadsheet. 
  * 
  * 
- * 1 This program will function by taking in a string input of the league homepage and
- * a starting box score number
- * 2 From the text file we will get another string input of how many box scores to get
- * as in the number of times we will download a game log (loop variable)
- * 3 We will go through the process of getting to the download files using the last four
- * digits and then writing the corresponding CSV
- * 4 We will increase our box score number by 1 and repeat 3 until we hit our number entered
- * in 2
+ * 1 This program will function by taking in inputs of a download path, MFN league homepage,
+ * box score number of the first preseason game of the starting season, the number of seasons
+ * to get, and the number of preseason weeks for the league
+ * 2 Using the number of seasons to loop and the number of preseason weeks, we will determine
+ * the amount of times to loop and preseason games to skip
+ * 3 Using the league homepage and the box score number, we will build our download string then
+ * proceed to download it and updating the file name to be numbers only after downloading to try
+ * and get a unique name every time
+ * 4 The box score number will be incremented and step 3 will be repeated until we have finished
+ * looping through our number of seasons and each season
+ * 5 The program will display a message to confirm to the user that it finished successfully
  * 
  * To Do:
- * 		Add functionality to let users say how many seasons of data they want instead of loop amount
- * 		Add functionality to have the script choose which loop method to use based on number of 
- * 			preseason games indicated
  * 		Verify script runs as intended using JUnit tests
  * 		Verify script outputs files correctly by running it to collect most recent USFL season
+ * 		Try to optimize the download time somehow
+ * 		Make download code into a method since it is reused
  * 		
  */
 
@@ -92,49 +94,149 @@ public class leagueScraperRunner {
 		String downloadToFile = scnr.nextLine();// first line is where to download logs to
 		String leagueURL = scnr.nextLine();// second line is the league to scrape
 		int boxScoreStart = Integer.parseInt(scnr.nextLine());// third line is the box score starting
-		int loopValue = Integer.parseInt(scnr.nextLine());// fourth line is the number of times to loop
+		int loopValue = Integer.parseInt(scnr.nextLine());// fourth line is the number of seasons
 		int numPreWeeks = Integer.parseInt(scnr.nextLine());// fifth line is num of preseason weeks
 		
-		System.out.println("We will download to this folder: " + downloadToFile);
-		System.out.println("We will scrape this league: " + leagueURL);
-		System.out.println("We will start from this box score number: " + boxScoreStart);
-		System.out.println("We will loop this many times: " + loopValue);
-		System.out.println("We will account for this many preseason weeks: " + numPreWeeks);
+		/*
+		 * System.out.println("We will download to this folder: " + downloadToFile);
+		 * System.out.println("We will scrape this league: " + leagueURL);
+		 * System.out.println("We will start from this box score number: " +
+		 * boxScoreStart); System.out.println("We will loop this many times: " +
+		 * loopValue);
+		 * System.out.println("We will account for this many preseason weeks: " +
+		 * numPreWeeks);
+		 */
 		
 		//switch statement based on the number of preseason weeks 
 		//the number of preseason weeks changes how many games to skip as well as
 		//our verification statements 
-		
-		// we need to verify loopValue + 1 is divisible by 317 for this to work as
-		// intended
-		if (((Double.valueOf(loopValue) + 1) / 317) % 1 != 0) {
-			System.out.println("Error: loopValue of " + loopValue + " is will not work as intended");
-			System.out.println("loopValue + 1 must be divisible by 317");
+		switch(numPreWeeks) {
+		case 0:
+			System.out.println("0 is an invalid number of preseason weeks.");
 			System.exit(1);
-		}
+			break;
+		case 1:
+			System.out.println("Are you sure there can be only 1 week of preseason?");
+			System.exit(1);
+			break;
+		case 2:
+			//Two weeks of preseason games means we need to skip 32 games then download the rest
+			//of the season which is 269 games. So inner loop goes 32 + 269 times
+			for(int i = 0; i < loopValue; i++) {
+				//looping loopValue number of seasons
+				for(int j = 0; j < 269+32; j++) {
+					if(j > 31) {//WORKS
+						//we know we are skipping the first 32 games 0-31
+						//System.out.println("This is j: " + j + " and this is boxScore: " + boxScoreStart);
+						
+						// we have the right range of box scores and now need to build the string to
+						// get to the download page and add our box score number to it
+						// we take leagueURL and concat log/download/ and concat boxScoreStart
+						String temp = "";
+						temp = temp.concat(leagueURL).concat("log/download/").concat(String.valueOf(boxScoreStart));
+						//System.out.println(temp);
+						
+						// temp now holds our url to access the download and we just need to invoke
+						// our download method to save it to the specified folder from earlier
+						downloadUsingStream(temp,downloadToFile);
+					}
+					boxScoreStart++;
+				}//end of inner loop
+			}//end of outer loop
+			break;
+		case 3:
+			//Three weeks of preseason games means we need to skip 48 games then download the rest
+			//of the season which is 269 games. So inner loop goes 48 + 269 times
+			for(int i = 0; i < loopValue; i++) {
+				//looping loopValue number of seasons
+				for(int j = 0; j < 269+48; j++) {
+					if(j > 47) { //WORKS
+						//we know we are skipping the first 48 games 0-47
+						//System.out.println("This is j: " + j + " and this is boxScore: " + boxScoreStart);
+						
+						// we have the right range of box scores and now need to build the string to
+						// get to the download page and add our box score number to it
+						// we take leagueURL and concat log/download/ and concat boxScoreStart
+						String temp = "";
+						temp = temp.concat(leagueURL).concat("log/download/").concat(String.valueOf(boxScoreStart));
+						//System.out.println(temp);
+						
+						// temp now holds our url to access the download and we just need to invoke
+						// our download method to save it to the specified folder from earlier
+						downloadUsingStream(temp,downloadToFile);
+					}
+					boxScoreStart++;
+				}//end of inner loop
+			}//end of outer loop
+			break;
+			
+		case 4:
+			//Four weeks of preseason games means we need to skip 64 games then download the rest
+			//of the season which is 269 games. So inner loop goes 64 + 269 times
+			for(int i = 0; i < loopValue; i++) {
+				//looping loopValue number of seasons
+				for(int j = 0; j < 269+64; j++) {
+					if(j > 63) { //WORKS
+						//we know we are skipping the first 64 games 0-63
+						//System.out.println("This is j: " + j + " and this is boxScore: " + boxScoreStart);
+						
+						// we have the right range of box scores and now need to build the string to
+						// get to the download page and add our box score number to it
+						// we take leagueURL and concat log/download/ and concat boxScoreStart
+						String temp = "";
+						temp = temp.concat(leagueURL).concat("log/download/").concat(String.valueOf(boxScoreStart));
+						//System.out.println(temp);
+						
+						// temp now holds our url to access the download and we just need to invoke
+						// our download method to save it to the specified folder from earlier
+						downloadUsingStream(temp,downloadToFile);
+					}
+					boxScoreStart++;
+				}//end of inner loop
+			}//end of outer loop
+			break;
+		case 5:
+			System.out.println("5 is an invalid number of preseason weeks.");
+			System.exit(1);
+			break;
+		
+		}//end of switch
+		
+		
 
-		for (int i = 0; i <= loopValue; i++) {
-			// we need to figure out the mathematical formula to remove preseason games
-			// and use an if statement to skip those
-			// we want to skip 48 games to start, then grab the next 269 that make up
-			// the regular season and playoffs
-			if ((i % 317) > 47) {
-				// we have the right range of box scores and now need to build the string to
-				// get to the download page and add our box score number to it
-				// we take https://xfl.myfootballnow.com/ and add log/download/boxScoreStart
-				String temp = "";
-				temp = temp.concat(leagueURL).concat("log/download/").concat(String.valueOf(boxScoreStart));
-				//System.out.println(temp);
-				// temp now holds our url to access the download and we just need to invoke
-				// our download method to save it to the specified folder from earlier
-				downloadUsingStream(temp,downloadToFile);
-			}
-
-			// increment at the end so that we get the championship game AND the first box
-			// score wanted
-			boxScoreStart++;
-		}
 		// System.out.println(boxScoreStart);
 		System.out.println("Finished execution.");
 	}
 }
+
+//Old Code
+
+// we need to verify loopValue + 1 is divisible by 317 for this to work as
+// intended
+//if (((Double.valueOf(loopValue) + 1) / 317) % 1 != 0) {
+//	System.out.println("Error: loopValue of " + loopValue + " is will not work as intended");
+//	System.out.println("loopValue + 1 must be divisible by 317");
+//	System.exit(1);
+//}
+
+//for (int i = 0; i <= loopValue; i++) {
+//// we need to figure out the mathematical formula to remove preseason games
+//// and use an if statement to skip those
+//// we want to skip 48 games to start, then grab the next 269 that make up
+//// the regular season and playoffs
+//if ((i % 317) > 47) {
+//	// we have the right range of box scores and now need to build the string to
+//	// get to the download page and add our box score number to it
+//	// we take https://xfl.myfootballnow.com/ and add log/download/boxScoreStart
+//	String temp = "";
+//	temp = temp.concat(leagueURL).concat("log/download/").concat(String.valueOf(boxScoreStart));
+//	//System.out.println(temp);
+//	// temp now holds our url to access the download and we just need to invoke
+//	// our download method to save it to the specified folder from earlier
+//	downloadUsingStream(temp,downloadToFile);
+//}
+//
+//// increment at the end so that we get the championship game AND the first box
+//// score wanted
+//boxScoreStart++;
+//}
