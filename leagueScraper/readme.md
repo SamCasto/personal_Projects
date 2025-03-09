@@ -8,12 +8,12 @@ than 0. Accepts number of preseason games and validates that the number is or be
 
 Current version does not validate that the numbers input are integers. Will be updated in the next version. 
 
-Value definitions:
-  Download Path - the system path to the folder that will hold the download files
-  League URL - the URL for the specific MFN league to download season(s) worth of game logs from
-  Box Score Starting Number - the first box score number of the starting season, should be from the first preseason game
-  Number of Seasons - the number of seasons to download consecutively
-  Number of Preseason Games - the number of games played in preseason so the scraper will not download them
+Value definitions:<br>
+  <b>Download Path</b> - the system path to the folder that will hold the download files<br>
+  <b>League URL</b> - the URL for the specific MFN league to download season(s) worth of game logs from<br>
+  <b>Box Score Starting Number</b> - the first box score number of the starting season, should be from the first preseason game<br>
+  <b>Number of Seasons</b> - the number of seasons to download consecutively<br>
+  <b>Number of Preseason Games</b> - the number of games played in preseason so the scraper will not download them<br>
 
 Once start is clicked and all values are acceptable, scraper should run to download the specified game logs. There will
 be a pop up message upon successfully starting and upon finishing. The current time I have noticed is roughly 10 minutes
